@@ -16,6 +16,11 @@
     "type": "bool",
     "default": true
   },
+  "cosyvoice_enabled": {
+    "description": "启用 CosyVoice（关闭后 BreezeBlue 失败也不会回退 CosyVoice）",
+    "type": "bool",
+    "default": true
+  },
   "breezeblue_enabled": {
     "description": "启用 BreezeBlue",
     "type": "bool",

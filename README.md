@@ -18,6 +18,7 @@ AstrBot 语音插件：**BreezeBlue 优先，失败/额度不足自动回退 Cos
 ```text
 provider = breezeblue
 fallback_to_cosyvoice = true
+cosyvoice_enabled = true   # 手动关闭 CosyVoice 时设为 false
 
 breezeblue_api_key = 你的 BreezeBlue Key
 breezeblue_voice_id = voc_xxx

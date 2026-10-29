@@ -100,16 +100,31 @@ class AemeathVoicePlugin(Star):
     async def _synth_file(self, text: str) -> Path:
         timeout = float(self.config.get("timeout", 60))
         primary = str(self.config.get("provider", "breezeblue")).lower()
-        providers = ["cosyvoice"] if primary == "cosyvoice" else ["breezeblue"]
-        if primary != "cosyvoice" and self.config.get("fallback_to_cosyvoice", True):
+        breeze_on = bool(self.config.get("breezeblue_enabled", True))
+        cosy_on = bool(self.config.get("cosyvoice_enabled", True))
+
+        if primary == "cosyvoice" and cosy_on:
+            providers = ["cosyvoice"]
+        elif primary == "breezeblue" and breeze_on:
+            providers = ["breezeblue"]
+        elif breeze_on:
+            providers = ["breezeblue"]
+        elif cosy_on:
+            providers = ["cosyvoice"]
+        else:
+            raise RuntimeError("BreezeBlue 和 CosyVoice 都已被手动关闭")
+
+        if (
+            self.config.get("fallback_to_cosyvoice", True)
+            and cosy_on
+            and "cosyvoice" not in providers
+        ):
             providers.append("cosyvoice")
 
         errors: list[str] = []
         for provider in providers:
             try:
                 if provider == "breezeblue":
-                    if not self.config.get("breezeblue_enabled", True):
-                        continue
                     audio = await self._breezeblue_client().synthesize(text, timeout=timeout)
                     suffix = "wav"
                 else:
