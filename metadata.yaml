@@ -1,0 +1,9 @@
+name: astrbot_plugin_aemeath_voice
+display_name: 爱弥斯·语音
+version: 0.2.0
+desc: BreezeBlue 优先、CosyVoice 自动回退；支持 /voice、自然语言前缀和概率语音回复
+author: redsun12138
+repo: https://github.com/redsun12138/astrbot_plugin_aemeath_voice
+astrbot_version: ">=4.24.0"
+support_platforms:
+  - aiocqhttp
